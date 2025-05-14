@@ -1,54 +1,49 @@
-# React + TypeScript + Vite
+主要优化点：
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+组件拆分：
 
-Currently, two official plugins are available:
+将核心逻辑抽离为独立的 PermissionEditor 组件
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+主组件只负责弹窗控制和数据保存
 
-## Expanding the ESLint configuration
+数据流管理：
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+通过 onChange 回调实时传递数据变化
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+使用受控组件模式管理数据状态
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+状态管理优化：
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+自动同步初始数据和当前数据
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+使用函数式更新确保状态一致性
+
+性能优化：
+
+数据变更时自动触发更新
+
+独立的渲染逻辑减少重复渲染
+
+扩展性增强：
+
+组件接口清晰（initialData + onChange）
+
+方便复用和样式定制
+
+功能改进：
+
+实时保存最新数据状态
+
+取消操作自动保留上次保存状态
+
+使用说明：
+
+PermissionEditor 为独立封装的权限编辑器组件
+
+通过 initialData 属性传入初始权限数据
+
+通过 onChange 回调接收实时数据变化
+
+保存时可直接获取最新权限数据
+
+样式类名保持与之前版本一致，方便样式继承
